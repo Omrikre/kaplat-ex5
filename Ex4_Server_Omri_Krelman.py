@@ -7,8 +7,8 @@ import shutil
 import time
 
 app = Flask(__name__)
-host = "localhost"
-port = 9583
+host = "0.0.0.0"
+port = 9285
 stack = list()
 simple_sign = ["plus", "minus", "times", "divide", "pow"]
 one_num_sign = ["abs", "fact"]
@@ -182,19 +182,22 @@ def delete_from_stack():
 @app.route('/logs/level', methods=['GET'])
 def get_current_logger_level():
     startTime = requestLogger("GET", "/logs/level")
+    reqLogger = logging.getLogger('request-logger')
+    stackLogger = logging.getLogger('stack-logger')
+    independentLogger = logging.getLogger('independent-logger')
 
     loggerName = request.args.get('logger-name')
     if loggerName == "request-logger":
-        requestLoggerEnd(startTime)
         response = jsonify({"result": str(reqLogger.getEffectiveLevel())})
+        requestLoggerEnd(startTime)
         return response, 200
     elif loggerName == "stack-logger":
-        requestLoggerEnd(startTime)
         response = jsonify({"result": str(stackLogger.getEffectiveLevel())})
+        requestLoggerEnd(startTime)
         return response, 200
     elif loggerName == "independent-logger":
-        requestLoggerEnd(startTime)
         response = jsonify({"result": str(independentLogger.getEffectiveLevel())})
+        requestLoggerEnd(startTime)
         return response, 200
     else:
         requestLoggerEnd(startTime)

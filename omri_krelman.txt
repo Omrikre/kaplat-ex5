@@ -1,0 +1,6 @@
+{
+	"name": "Omri Krelman",
+	"id": "205800378",
+	"appName": "ex5",
+	"mageName": "omrikre/kaplat-ex5:1.0"
+}
